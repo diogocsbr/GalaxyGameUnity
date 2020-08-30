@@ -4,19 +4,54 @@ using UnityEngine;
 
 public class player : MonoBehaviour
 {
-    [SerializeField]
-    private float speed = 5.0f;
 
-    // Start is called before the first frame update
+    public bool cantripleShot = false;
+
+    [SerializeField]
+    private float _speed = 5.0f;
+
+    [SerializeField]
+    private float _fireRate = 0.25f;
+    private float _canFire = 0.0f;
+
+    [SerializeField]
+    private  GameObject _laserPrefab;
+    [SerializeField] 
+    private  GameObject _tripleShotPrefab;
+
     void Start()
     {
         transform.position = new Vector3(0, 0, 0);
     }
 
-    // Update is called once per frame
+    private void Atirar()
+    {
+        if (Time.time > _canFire)
+        {
+            if (cantripleShot)
+            {
+                //Instantiate(_laserPrefab, transform.position + new Vector3(-0.55f, 0.06f, 0), Quaternion.identity);
+                //Instantiate(_laserPrefab, transform.position + new Vector3(0, 0.88f, 0), Quaternion.identity);
+                //Instantiate(_laserPrefab, transform.position + new Vector3(0.55f, 0.06f, 0), Quaternion.identity);
+
+                Instantiate(_tripleShotPrefab, transform.position, Quaternion.identity);
+
+            }
+            else
+            {
+                Instantiate(_laserPrefab, transform.position + new Vector3(0, 0.88f, 0), Quaternion.identity);
+            }
+            _canFire = Time.time + _fireRate;
+        }
+    }
+
     void Update()
     {
         Movimento();
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButton(0))
+        {
+            Atirar();
+        }
     }
 
     private void Movimento() {
@@ -24,8 +59,8 @@ public class player : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
-        transform.Translate(Vector3.right * speed * horizontalInput * Time.deltaTime);
-        transform.Translate(Vector3.up * speed * verticalInput * Time.deltaTime);
+        transform.Translate(Vector3.right * _speed * horizontalInput * Time.deltaTime);
+        transform.Translate(Vector3.up * _speed * verticalInput * Time.deltaTime);
 
 
         //meio tela e naão sai por baixo
@@ -57,5 +92,16 @@ public class player : MonoBehaviour
         {
             transform.position = new Vector3(9.5f, transform.position.y, 0);
         }
+    }
+
+
+    public void IniciarTiroTriplo() {
+        cantripleShot = true;
+        StartCoroutine(PararTiroTriplo());
+    }
+    public IEnumerator PararTiroTriplo() {
+
+        yield return new WaitForSeconds(5.0f);
+        cantripleShot = false;
     }
 }
