@@ -6,6 +6,7 @@ public class player : MonoBehaviour
 {
 
     public bool cantripleShot = false;
+    public bool isSpeedBoostActive = false;
 
     [SerializeField]
     private float _speed = 5.0f;
@@ -59,9 +60,16 @@ public class player : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
-        transform.Translate(Vector3.right * _speed * horizontalInput * Time.deltaTime);
-        transform.Translate(Vector3.up * _speed * verticalInput * Time.deltaTime);
-
+        if (isSpeedBoostActive)
+        {
+            transform.Translate(Vector3.right * _speed * 1.5f * horizontalInput * Time.deltaTime);
+            transform.Translate(Vector3.up * _speed * 1.5f * verticalInput * Time.deltaTime);
+        }
+        else
+        {
+            transform.Translate(Vector3.right * _speed * horizontalInput * Time.deltaTime);
+            transform.Translate(Vector3.up * _speed * verticalInput * Time.deltaTime);
+        }
 
         //meio tela e naão sai por baixo
         if (transform.position.y > 0)
@@ -103,5 +111,18 @@ public class player : MonoBehaviour
 
         yield return new WaitForSeconds(5.0f);
         cantripleShot = false;
+    }
+
+
+
+    public void IniciarSpeedbostActive()
+    {
+        isSpeedBoostActive = true;
+        StartCoroutine(PararSpeedBoost());
+    }
+    public IEnumerator PararSpeedBoost()
+    {
+        yield return new WaitForSeconds(5.0f);
+        isSpeedBoostActive = false;
     }
 }
