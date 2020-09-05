@@ -16,6 +16,9 @@ public class player : MonoBehaviour
     private float _canFire = 0.0f;
 
     [SerializeField]
+    private int _lives = 3;
+
+    [SerializeField]
     private  GameObject _laserPrefab;
     [SerializeField] 
     private  GameObject _tripleShotPrefab;
@@ -113,8 +116,6 @@ public class player : MonoBehaviour
         cantripleShot = false;
     }
 
-
-
     public void IniciarSpeedbostActive()
     {
         isSpeedBoostActive = true;
@@ -124,5 +125,16 @@ public class player : MonoBehaviour
     {
         yield return new WaitForSeconds(5.0f);
         isSpeedBoostActive = false;
+    }
+
+
+    public void TomarDano()
+    {
+        _lives--;
+
+        if ( _lives == 0)
+        {
+            Destroy(this.gameObject);
+        }
     }
 }
