@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class InimigoIA : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject _inimigoExplosaoPrefab;
+
     public float speed = 5f;
 
     // Start is called before the first frame update
@@ -32,6 +35,8 @@ public class InimigoIA : MonoBehaviour
             {
                 Destroy(other.transform.parent.gameObject);
             }
+            
+            Instantiate(_inimigoExplosaoPrefab, transform.position, Quaternion.identity);
             Destroy(other.gameObject);
             Destroy(this.gameObject);
         }
@@ -42,6 +47,7 @@ public class InimigoIA : MonoBehaviour
             {
                 player.TomarDano();
             }
+            Instantiate(_inimigoExplosaoPrefab, transform.position, Quaternion.identity);
             Destroy(this.gameObject);
         }
     }

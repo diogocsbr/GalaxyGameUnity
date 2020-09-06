@@ -22,6 +22,8 @@ public class player : MonoBehaviour
     private  GameObject _laserPrefab;
     [SerializeField] 
     private  GameObject _tripleShotPrefab;
+    [SerializeField]
+    private GameObject _explosaoPrefab;
 
     void Start()
     {
@@ -134,6 +136,7 @@ public class player : MonoBehaviour
 
         if ( _lives == 0)
         {
+            Instantiate(_explosaoPrefab, transform.position, Quaternion.identity);
             Destroy(this.gameObject);
         }
     }
