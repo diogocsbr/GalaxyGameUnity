@@ -29,10 +29,18 @@ public class player : MonoBehaviour
     [SerializeField]
     private GameObject _shields;
 
+    private UIManager _uiManager;
 
     void Start()
     {
         transform.position = new Vector3(0, 0, 0);
+
+        _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
+
+        if (_uiManager != null)
+        {
+            _uiManager.AtualizarVidas(_lives);
+        }
     }
 
     private void Atirar()
@@ -149,6 +157,7 @@ public class player : MonoBehaviour
         }
 
         _lives--;
+        _uiManager.AtualizarVidas(_lives);
 
         if ( _lives == 0)
         {
