@@ -7,6 +7,7 @@ public class player : MonoBehaviour
 
     public bool cantripleShot = false;
     public bool isSpeedBoostActive = false;
+    public bool shieldActive = false;
 
     [SerializeField]
     private float _speed = 5.0f;
@@ -24,6 +25,10 @@ public class player : MonoBehaviour
     private  GameObject _tripleShotPrefab;
     [SerializeField]
     private GameObject _explosaoPrefab;
+
+    [SerializeField]
+    private GameObject _shields;
+
 
     void Start()
     {
@@ -129,9 +134,20 @@ public class player : MonoBehaviour
         isSpeedBoostActive = false;
     }
 
+    public void AbilitarShields() {
+        shieldActive = true;
+        _shields.SetActive(true);
+    }
 
     public void TomarDano()
     {
+        if ( shieldActive)
+        {
+            shieldActive = false;
+            _shields.SetActive(false);
+            return;
+        }
+
         _lives--;
 
         if ( _lives == 0)

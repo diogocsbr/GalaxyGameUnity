@@ -42,7 +42,7 @@ public class powerup : MonoBehaviour
                 }
                 else if (powerID == 2)
                 {
-
+                    player.AbilitarShields();
                 }
             }
 
