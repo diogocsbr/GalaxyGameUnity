@@ -9,10 +9,12 @@ public class InimigoIA : MonoBehaviour
 
     public float speed = 5f;
 
+    private UIManager _uiManager;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
     }
 
     // Update is called once per frame
@@ -35,8 +37,10 @@ public class InimigoIA : MonoBehaviour
             {
                 Destroy(other.transform.parent.gameObject);
             }
-            
             Instantiate(_inimigoExplosaoPrefab, transform.position, Quaternion.identity);
+            
+            _uiManager.AtualizarScore();
+
             Destroy(other.gameObject);
             Destroy(this.gameObject);
         }
