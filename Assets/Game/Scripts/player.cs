@@ -33,6 +33,8 @@ public class player : MonoBehaviour
     private GameManager _gameManager;
     private Spawn _spawn;
 
+    private AudioSource _audioSource;
+
     void Start()
     {
         transform.position = new Vector3(0, 0, 0);
@@ -52,12 +54,16 @@ public class player : MonoBehaviour
         {
             _spawn.IniciarSpawns();
         }
+
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void Atirar()
     {
         if (Time.time > _canFire)
         {
+            _audioSource.Play();
+
             if (cantripleShot)
             {
                 //Instantiate(_laserPrefab, transform.position + new Vector3(-0.55f, 0.06f, 0), Quaternion.identity);

@@ -11,10 +11,14 @@ public class InimigoIA : MonoBehaviour
 
     private UIManager _uiManager;
 
+    //tocar um clip pois, o audio da explosão não sai pois, o objeto esta sendo destruido
+    [SerializeField]private AudioClip _clip;
+
     // Start is called before the first frame update
     void Start()
     {
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
+        //_clip = GetComponent<AudioClip>();
     }
 
     // Update is called once per frame
@@ -37,10 +41,14 @@ public class InimigoIA : MonoBehaviour
             {
                 Destroy(other.transform.parent.gameObject);
             }
+
+            //_audioSource.Play();
+            AudioSource.PlayClipAtPoint(_clip, Camera.main.transform.position, 1f);
+
             Instantiate(_inimigoExplosaoPrefab, transform.position, Quaternion.identity);
             
             _uiManager.AtualizarScore();
-
+            
             Destroy(other.gameObject);
             Destroy(this.gameObject);
         }
@@ -51,6 +59,10 @@ public class InimigoIA : MonoBehaviour
             {
                 player.TomarDano();
             }
+
+            //_audioSource.Play();
+            AudioSource.PlayClipAtPoint(_clip, Camera.main.transform.position, 1f);
+
             Instantiate(_inimigoExplosaoPrefab, transform.position, Quaternion.identity);
             Destroy(this.gameObject);
         }
