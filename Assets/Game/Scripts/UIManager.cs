@@ -13,6 +13,8 @@ public class UIManager : MonoBehaviour
 
     public int Pontos;
 
+    public GameObject titleScreen;
+
     public void AtualizarVidas(int vidaCorrente) 
     {
         imagemVida.sprite = vidas[vidaCorrente];    
@@ -24,5 +26,15 @@ public class UIManager : MonoBehaviour
         PontosTexto.text = $"Pontos:{Pontos}";
     }
 
+    public void MostrarTelaInicial() 
+    {
+        titleScreen.SetActive(true);
+    }
+    public void EsconderTelaInicial()
+    {
+        titleScreen.SetActive(false);
 
+        Pontos += 0;
+        PontosTexto.text = $"Pontos:";
+    }
 }

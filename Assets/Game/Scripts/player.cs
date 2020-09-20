@@ -30,6 +30,8 @@ public class player : MonoBehaviour
     private GameObject _shields;
 
     private UIManager _uiManager;
+    private GameManager _gameManager;
+    private Spawn _spawn;
 
     void Start()
     {
@@ -40,6 +42,15 @@ public class player : MonoBehaviour
         if (_uiManager != null)
         {
             _uiManager.AtualizarVidas(_lives);
+        }
+
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
+        _spawn = GameObject.Find("ControllerSpawn").GetComponent<Spawn>();
+
+        if (_spawn != null)
+        {
+            _spawn.IniciarSpawns();
         }
     }
 
@@ -162,6 +173,10 @@ public class player : MonoBehaviour
         if ( _lives == 0)
         {
             Instantiate(_explosaoPrefab, transform.position, Quaternion.identity);
+            
+            _gameManager.gameOver = true;
+            _uiManager.MostrarTelaInicial();
+
             Destroy(this.gameObject);
         }
     }
