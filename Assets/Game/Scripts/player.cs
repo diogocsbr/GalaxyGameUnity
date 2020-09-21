@@ -35,6 +35,11 @@ public class player : MonoBehaviour
 
     private AudioSource _audioSource;
 
+    [SerializeField]
+    private GameObject[] _motores;
+
+    private int _tomoudHit = 0;
+
     void Start()
     {
         transform.position = new Vector3(0, 0, 0);
@@ -56,6 +61,8 @@ public class player : MonoBehaviour
         }
 
         _audioSource = GetComponent<AudioSource>();
+
+        _tomoudHit = 0;
     }
 
     private void Atirar()
@@ -171,6 +178,17 @@ public class player : MonoBehaviour
             shieldActive = false;
             _shields.SetActive(false);
             return;
+        }
+
+        _tomoudHit++;
+
+        if (_tomoudHit == 1)
+        {
+            _motores[0].SetActive(true);
+        }
+        else if (_tomoudHit == 2)
+        {
+            _motores[1].SetActive(true);
         }
 
         _lives--;
