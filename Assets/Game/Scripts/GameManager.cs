@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if ( gameOver)
+        if ( gameOver )
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {

@@ -34,6 +34,8 @@ public class Spawn : MonoBehaviour
             Instantiate(inimigosPrefab, new Vector3(Random.Range(-7f, 7f), 7, 0), Quaternion.identity);
             yield return new WaitForSeconds(5.0f);
         }
+
+        Debug.Log("Game Over 1");
     }
 
     IEnumerator spawnPowerUpsRoutine()
@@ -44,6 +46,8 @@ public class Spawn : MonoBehaviour
             Instantiate(powerUps[randowPowerUps], new Vector3(Random.Range(-7, 7), 7, 0), Quaternion.identity);
             yield return new WaitForSeconds(5.0f);
         }
+
+        Debug.Log("Game Over 2");
     }
 
 

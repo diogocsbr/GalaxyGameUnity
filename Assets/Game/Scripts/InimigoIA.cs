@@ -11,12 +11,16 @@ public class InimigoIA : MonoBehaviour
 
     private UIManager _uiManager;
 
+    private GameManager _gameManager;
+
+
     //tocar um clip pois, o audio da explosão não sai pois, o objeto esta sendo destruido
     [SerializeField]private AudioClip _clip;
 
     // Start is called before the first frame update
     void Start()
     {
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
         //_clip = GetComponent<AudioClip>();
     }
@@ -30,6 +34,12 @@ public class InimigoIA : MonoBehaviour
         {
             float randomX = Random.Range(-7, 7);
             transform.position = new Vector3(randomX, 7, 0);
+        }
+
+        if (_gameManager.gameOver)
+        {
+            Debug.Log("destruiu pois ainda estava ativo");
+            Destroy(gameObject);
         }
     }
 
